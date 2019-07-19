@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Layout from "./components/layout";
 import { Global, css } from "@emotion/core";
-import { StoreProvider } from "./store/store";
+import story from "./components/narrative/story";
+import { StoreProvider,  } from "utils/store";
 
 export default function App(): JSX.Element {
+
   return (
     <StoreProvider>
       <Global styles={globalStyles} />
@@ -14,15 +16,15 @@ export default function App(): JSX.Element {
 }
 
 //styles
-import styleUtils from "utils/styles";
+
 const globalStyles = css`
   body {
     display: flex;
+    font-family: 'Raleway', sans-serif;
     font-size: 15,
     font-color: white;
-    height: 100vh;
-    justify-content: center;
-  }
+    align-items: flex-start;
+     }
 `;
 
 //render

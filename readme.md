@@ -2,7 +2,7 @@
 # JobCoin Interface
 
 ## description 
-This project is intended to provide a user the ability to track their JobCoin transactions and to send JobCoins to other users. 
+This is the summary economic analysis for a blockchain real estate company focus on tokenizing building equity. The main argument is that micro ownership of housing would allow us to increasing affordability, build middle calss wealth and help foster more sustainable compact urban development. 
 
 ## to run 
 

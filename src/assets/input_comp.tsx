@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "@emotion/styled";
-import styleUtils from "utils/styles";
+import styleUtils from "../components/elements/discuss/node_modules/utils/styles";
 import { Input, Icon } from "semantic-ui-react";
 
 

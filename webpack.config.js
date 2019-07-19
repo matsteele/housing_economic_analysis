@@ -1,45 +1,59 @@
-var debug = process.env.NODE_ENV !== 'production';
-var webpack = require('webpack');
-var path = require('path');
-
+var debug = process.env.NODE_ENV !== "production";
+var webpack = require("webpack");
+var path = require("path");
 
 const rules = [
   {
     test: /\.tsx?/,
-    use: 'babel-loader'
+    use: "babel-loader"
+  },
+  // {
+  //   test: /\.svg$/,
+  //   loader: "svg-inline-loader"
+  // },
+  {
+    test: /\.(png|jpg|gif|svg)$/i,
+    use: [
+      {
+        loader: "url-loader",
+        options: {
+          limit: 10000
+        }
+      }
+    ]
   }
-]
+];
 
 module.exports = {
-  target:   'web',
-  mode: 'development',
-  context:  path.join(__dirname, 'src'),
-  devtool:  debug ? 'inline-sourcemap' : null,
-  entry:    './entry.tsx',
-  resolve:  {
-    extensions:['.ts','.tsx','.js'],
+  target: "web",
+  mode: "development",
+  context: path.join(__dirname, "src"),
+  devtool: debug ? "inline-sourcemap" : null,
+  entry: "./entry.tsx",
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json"],
     alias: {
-      'utils': path.resolve(__dirname, './src/utils'),
-      'store': path.resolve(__dirname, './src/store')   // <-- When you build or restart dev-server, you'll get an error if the path to your utils.js file is incorrect.
+      utils: path.resolve(__dirname, "./src/utils"),
+      store: path.resolve(__dirname, "./src/store") // <-- When you build or restart dev-server, you'll get an error if the path to your utils.js file is incorrect.
     }
   },
   devServer: {
-    contentBase:'./',
+    contentBase: "./",
     port: 5000,
     watchContentBase: true,
     historyApiFallback: true
   },
-  module: {rules},
+  module: { rules },
   output: {
-    path: path.resolve(__dirname,'build/'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, "build/"),
+    filename: "bundle.js",
+    publicPath: "/"
   },
-  plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
-  ],
+  plugins: debug
+    ? []
+    : [
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
+      ]
 };
-
-

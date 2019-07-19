@@ -1,49 +1,59 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import AbsoluteElements from "../elements";
+import { store } from "utils/store";
+
+
 class Layout extends React.Component {
   constructor(props) {
     super(props);
-    this.scroller = React.createRef();
-    this.state = { scrollTop: 0 };
+    this.state = { scrollTop: 0, screenWidths: 0 };
     this.handleScroll = this.handleScroll.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
   handleScroll() {
-    const scrollTop = this.scroller.scrollTop;
-    console.log(`myRef.scrollTop: ${scrollTop}`);
+    const scrollTop = window.scrollY;
+    const screenHeights = Math.round(window.scrollY / window.outerHeight);
     this.setState({
-      scrollTop: scrollTop
+      scrollTop,
+      screenHeights
     });
   }
 
   render() {
-    console.log(this.state);
     // const { scrollTop } = this.state;
+    console.log("context", this.context.state.currentSlideNumber);
+ 
+
     var N = 100;
     const longArray = Array.apply(null, { length: N }).map(Number.call, Number);
     return (
-      <ScrollableContainer
-        ref={scroller => {
-          this.scroller = scroller;
-        }}
-        onScroll={this.handleScroll}
-      >
-        <fillerDiv />
-        <mainDisplay />
-        <ul>
-          <li>testing</li>
+      <>
+        <ScrollableContainer>
           {longArray.map(valu => {
             return (
-              <li key={valu}>
-                "test"{valu} {this.state.scrollTop}
-              </li>
+              <FillerDiv key={valu}>
+                scroll height {valu} {this.state.screenWidths}{" "}
+                {this.state.scrollTop}
+              </FillerDiv>
             );
           })}
-        </ul>
-      </ScrollableContainer>
+        </ScrollableContainer>
+        <AbsoluteElements />
+      </>
     );
   }
 }
+
+Layout.contextType = store;
 
 export default Layout;
 
@@ -52,35 +62,18 @@ import styled from "@emotion/styled";
 import styleUtils from "utils/styles";
 
 const ScrollableContainer: any = styled.div({
-  backgroundColor: styleUtils.brightTeal,
-  color: 'white',
+  color: "white",
   width: "100%",
-  height: "100%",
   overflow: "scroll",
-  display: "flex",
-  alignItems: "center",
   flexDirection: "column",
-  justifyContent: "center"
+  alignItems: "flex-start",
+  position: "absolute"
 });
 
-
-const fillerDiv: any = styled.div({
-  backgroundColor: styleUtils.basicGray,
-  width: "100px",
-  height: "200px",
-  overflow: "scroll",
+const FillerDiv: any = styled.div({
+  width: "100%",
+  height: window.innerHeight,
   display: "flex",
   alignItems: "center",
-  flexDirection: "column",
-  justifyContent: "center"
-});
-
-const mainDisplay: any = styled(fillerDiv)({
-  width: "100px",
-  height: "200px",
-  overflow: "scroll",
-  display: "flex",
-  alignItems: "center",
-  flexDirection: "column",
   justifyContent: "center"
 });
