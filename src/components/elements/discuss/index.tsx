@@ -13,23 +13,32 @@ const width = elementDimensions.TextDivWidth;
 const height = elementDimensions.DisplayHeight;
 
 const Discuss = (props: iProps): JSX.Element => {
- const { state } = useContext(store);
+  const { state } = useContext(store);
   const currentSlide = story[state.currentSlideNumber];
+ 
+  let keyIndex = 0;
+
   return (
     <TextDiv>
-      {currentSlide.discuss ? (
-        <ShiftOutHOC
-          startingSlide={currentSlide.discuss.start}
-          endingSlide={currentSlide.discuss.end}
-          height={height}
-          width={width}
-          over={true}
-        >
-          {currentSlide.discuss.text}
-        </ShiftOutHOC>
-      ) : (
-        ""
-      )}
+      {currentSlide.discuss
+        ? currentSlide.discuss.map(eachTextChunk => {
+            keyIndex += 1;
+            return (
+              <React.Fragment key={`discuss_${keyIndex}`}>
+                <ShiftOutHOC
+                  key={`discuss_${keyIndex}`}
+                  startingSlide={eachTextChunk.start}
+                  endingSlide={eachTextChunk.end}
+                  height={height}
+                  width={width}
+                  opacity={"text"}
+                >
+                  {eachTextChunk.text}
+                </ShiftOutHOC>
+              </React.Fragment>
+            );
+          })
+        : ""}
     </TextDiv>
   );
 };

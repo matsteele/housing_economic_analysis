@@ -9,6 +9,7 @@ import {
 } from "../element_base";
 
 // TODO transparent after 50% of screenHeight
+
 const width = elementDimensions.DisplayWidth * 0.7;
 const height = elementDimensions.TitleHeight;
 
@@ -25,33 +26,28 @@ const Title = (props: iProps): JSX.Element => {
       emphasisColorBasedOnTheme = styleUtils.offWhite;
       break;
     case "dataStatsWhite":
-      emphasisColorBasedOnTheme = styleUtils.brightTeal;
+      emphasisColorBasedOnTheme = styleUtils.lightGray;
       break;
   }
-  let keyIndex = 0;
-  // key won't attach
+
   return (
-    <TitleDiv color={emphasisColorBasedOnTheme}>
-      {currentSlide.title
-        ? currentSlide.title.map(eachpoint => {
-            keyIndex += 1
+    <SourceDiv color={emphasisColorBasedOnTheme}>
+      {currentSlide.source
+        ? currentSlide.source.map(eachpoint => {
             return (
-              <React.Fragment key={`title_${keyIndex}`}>
-                <ShiftOutHOC
-                  key={`title_${keyIndex}`}
-                  startingSlide={eachpoint.start}
-                  endingSlide={eachpoint.end}
-                  height={height}
-                  width={width}
-                  over={true}
-                >
-                  {eachpoint.text}
-                </ShiftOutHOC>
-              </React.Fragment>
+              <ShiftOutHOC
+                startingSlide={eachpoint.start}
+                endingSlide={eachpoint.end}
+                height={height}
+                width={width}
+                over={true}
+              >
+                source: {eachpoint.text}
+              </ShiftOutHOC>
             );
           })
         : ""}
-    </TitleDiv>
+    </SourceDiv>
   );
 };
 
@@ -59,13 +55,15 @@ const Title = (props: iProps): JSX.Element => {
 import styleUtils from "utils/styles";
 import styled from "@emotion/styled";
 
-const TitleDiv: any = styled(OutlinedAbsoluteDiv)(props => ({
+const SourceDiv: any = styled(OutlinedAbsoluteDiv)(props => ({
   width: width,
   height: height,
-  left: 20,
-  top: elementDimensions.BufferWidth,
+  left: elementDimensions.DisplayWidth *.5,
+  top:
+    elementDimensions.DisplayHeight +
+    elementDimensions.TitleHeight ,
   color: props.color,
-  fontSize: "50px",
+  fontSize: "20px",
   lineHeight: 1
 }));
 

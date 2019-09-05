@@ -29,10 +29,6 @@ class Layout extends React.Component {
   }
 
   render() {
-    // const { scrollTop } = this.state;
-    console.log("context", this.context.state.currentSlideNumber);
- 
-
     var N = 100;
     const longArray = Array.apply(null, { length: N }).map(Number.call, Number);
     return (

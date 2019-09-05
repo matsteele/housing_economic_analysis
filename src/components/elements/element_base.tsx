@@ -29,19 +29,16 @@ export const ShiftOutHOC = (props: iProps): JSX.Element => {
       Math.floor(screenWidths) * window.outerHeight
     );
     if (_defaultShiftOutFactor >= 0) {
-      
       return 0;
     } else {
       return _defaultShiftOutFactor;
-      
     }
   };
 
   useEffect(() => {
-    
     setscreenWidths(window.scrollY / window.outerHeight);
     const SlideStarts = Math.floor(screenWidths) === props.startingSlide;
-    const SlideEnds = Math.floor(screenWidths) === props.endingSlide ;
+    const SlideEnds = Math.floor(screenWidths) === props.endingSlide;
 
     const drawInSlide = () => {
       if (SlideStarts) {
@@ -63,7 +60,7 @@ export const ShiftOutHOC = (props: iProps): JSX.Element => {
         screenWidths > props.endingSlide + 1
       ) {
         setVisible(false);
-      }else {
+      } else {
         setVisible(true);
       }
     };
@@ -79,7 +76,9 @@ export const ShiftOutHOC = (props: iProps): JSX.Element => {
       display={visible ? "flex" : "none"}
       height={props.height}
       width={props.width}
-      opacity={shiftOutFactor != 0 ?  ".25": props.opacity }
+      opacity={
+        props.opacity == "text" ? 1 : shiftOutFactor != 0 ? ".4" : props.opacity
+      }
       over={props.over}
     >
       {props.children}
@@ -87,29 +86,39 @@ export const ShiftOutHOC = (props: iProps): JSX.Element => {
   );
 };
 
-export default ShiftOutHOC;
+export const ShiftOutImageHOC = props => {
+  return (
+    <ShiftOutHOC
+      startingSlide={props.startingSlide}
+      endingSlide={props.endingSlide}
+      opacity="1"
+    >
+      <svg height="100%" width="100%">
+        <image height="100%" width="100%" href={props.imgURL} />
+      </svg>
+    </ShiftOutHOC>
+  );
+};
 
 //styles
-import styleUtils from "utils/styles";
 
 export const OutlinedAbsoluteDiv: any = styled.div({
   position: "fixed",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: "flex-start",
+  justifyContent: "center"
 });
 
 const Container = styled(OutlinedAbsoluteDiv)(props => ({
   width: props.width ? props.width : "100%",
   height: props.height ? props.height : "100%",
   display: props.display,
-  transform: props.over ? `translate(${props.goUpBy}px,0)`
+  transition: "all 100ms linear",
+  transform: props.over
+    ? `translate(${props.goUpBy}px,0)`
     : `translate(0,${props.goUpBy}px)`,
   flexDirection: "column",
-  opacity: props.opacity ? props.opacity : 0.7,
-  "&:hover": {
-    opacity: "1"
-  }
+  opacity: props.opacity
 }));
 
 const TextDivWidth = window.innerWidth * 0.2;
@@ -131,3 +140,9 @@ export const elementDimensions = {
   TitleHeight,
   TopBuffer
 };
+
+export const StyledSVG: any = styled.svg({
+  overflow: "visible !important",
+  height: "100%",
+  width: "77px"
+});

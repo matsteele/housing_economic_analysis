@@ -9,7 +9,6 @@ import { ShiftOutHOC, elementDimensions } from "../element_base";
 const Background = (props: iProps): JSX.Element => {
   const { state, dispatch } = useContext(store);
   const currentSlide = story[state.currentSlideNumber];
-
   let backgroundColorBasedOnTheme;
 
   switch (currentSlide.theme) {
@@ -18,6 +17,9 @@ const Background = (props: iProps): JSX.Element => {
       break;
     case "caseStudyGrey":
       backgroundColorBasedOnTheme = styleUtils.darkGray;
+      break;
+    case "dataStatsWhite":
+      backgroundColorBasedOnTheme = styleUtils.offWhite;
       break;
   }
 

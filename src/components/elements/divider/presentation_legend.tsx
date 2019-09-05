@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyledSVG } from ".";
 import story from "../../narrative/story";
 import { store } from "utils/store";
 import styleUtils from "utils/styles";
@@ -10,12 +9,15 @@ import {
   animateScroll as scroll,
 } from "react-scroll";
 
+import { StyledSVG } from "../element_base";
 
-export default function PresentationLegend() {
+
+export default function PresentationLegend(props) {
   const [circles, setCircles] = useState("");
   const [hoveredSectionStart, sethoveredSectionStart] = useState("none");
   const { state } = useContext(store);
   const currentSlide = story[state.currentSlideNumber];
+
 
   let backgroundColorBasedOnTheme;
   switch (currentSlide.theme) {
@@ -24,6 +26,9 @@ export default function PresentationLegend() {
       break;
     case "caseStudyGrey":
       backgroundColorBasedOnTheme = styleUtils.darkGray;
+      break;
+    case "dataStatsWhite":
+      backgroundColorBasedOnTheme = styleUtils.offWhite;
       break;
   }
 
@@ -45,50 +50,64 @@ export default function PresentationLegend() {
     return (
       <StyledSVG
         fill="none"
-        stroke="white"
+        stroke={props.outlineColorBasedOnTheme}
         strokeLinecap="round"
-        xmlns="http://www.w3.org/2000/svg"
-        xlink="http://www.w3.org/1999/xlink"
+        id="testing"
       >
         {story.map(function(item, i) {
           const transitionDistance = 40;
-          const isSectionCircleHovered = hoveredSectionStart === item.center.toString()
+          const isSectionCircleHovered =
+            hoveredSectionStart === item.center.toString();
           const LegendItem =
             item.section === currentSlide.section ? (
               <LegendCircleWhenClicked
-                key={`${item.section} ${i}`}
+                key={`${item.section}_${i}`}
                 yPosition={transitionDistance * i - 15}
-                stroke="white"
+                stroke={props.outlineColorBasedOnTheme}
               />
             ) : (
-              <>
+              <React.Fragment key={`${item.section}_${i}`}>
                 <g
                   onMouseEnter={e => handleMouseIn(e)}
                   onMouseLeave={e => handleMouseOut(e)}
                   onClick={e => handleClick(e)}
+                  key={`container_${item.section}_${i}`}
                 >
                   <circle
                     css={{
-                      transition: "all 1000ms linear",
+                      transition: "all 1000ms linear"
                     }}
                     id={item.center}
-                    key={`${item.section} ${i}`}
+                    key={`legend_${item.section}_${i}`}
                     cx="39"
                     cy={transitionDistance * i}
                     r="8"
-                    fill="white"
+                    fill={props.outlineColorBasedOnTheme}
                     opacity={isSectionCircleHovered ? "1" : ".5"}
                   />
                   {isSectionCircleHovered ? (
-                    <LegendCircleWhenClicked
-                      yPosition={transitionDistance * i - 15}
-                      stroke={backgroundColorBasedOnTheme}
-                    />
+                    <>
+                      <LegendCircleWhenClicked
+                        key={`hover_animation_${i}`}
+                        yPosition={transitionDistance * i - 15}
+                        stroke={backgroundColorBasedOnTheme}
+                      />
+                      <text
+                        css={{
+                          transition: "all 1000ms linear"
+                        }}
+                        x="0"
+                        textAnchor="end"
+                        y={transitionDistance * i +3}
+                      >
+                        {item.section}
+                      </text>
+                    </>
                   ) : (
                     ""
                   )}
                 </g>
-              </>
+              </React.Fragment>
             );
 
           return LegendItem;
@@ -97,14 +116,20 @@ export default function PresentationLegend() {
     );
   };
 
+
   useEffect(() => {
     const circles = createCircles();
     setCircles(circles);
   }, [currentSlide, hoveredSectionStart]);
+
+
   return (
     <>
-      <SectionTitle />
-      <SectionTitle background={backgroundColorBasedOnTheme}>
+      <SectionTitle/>
+      <SectionTitle
+        background={backgroundColorBasedOnTheme}
+        color={props.outlineColorBasedOnTheme}
+      >
         {currentSlide.section}
       </SectionTitle>
       <SectionTitle />
@@ -113,16 +138,18 @@ export default function PresentationLegend() {
   );
 }
 
+
 const SectionTitle: any = styled.div(props => ({
-  height: "10%",
+  height: "15%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  color: "white",
+  color: props.color,
   fontSize: "2em",
   background: props.background ? props.background : "",
   transition: "background-color 1000ms linear"
 }));
+
 
 const LegendCircleWhenClicked = props => (
   <svg

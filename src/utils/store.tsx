@@ -2,21 +2,20 @@ import React from "react";
 
 
 const initialState: iState = {
-   currentSlideNumber: 0 
-//   allUsers: [],
-//   currentUser: "",
-//   newTransactions: []
+  currentSlideNumber: 0,
+  //   allUsers: [],
+  //   currentUser: "",
+  //   newTransactions: []
 };
 
 export const store = React.createContext<i.State | any>(initialState);
 
 export const reducer = (state: i.State, action: iAction): iState => {
-  console.log(state,action,"instore")
     switch (action.type) {
     case "SET_SLIDE_NUMBER":
       return {
         ...state,
-        currentSlideNumber: action.payload,
+        currentSlideNumber: action.payload
       };
     // case "SET_USR":
     //   return {

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import Title from "./title";
+import Source from "./source";
 import Discuss from "./discuss";
 import Divider from "./divider";
 import Display from "./display";
@@ -12,28 +13,10 @@ const AbsoluteElements = props => {
   const { state, dispatch } = useContext(store);
   const currentSlideNumber = state.currentSlideNumber;
   const currentSlide = story[currentSlideNumber];
-  // make this an action. one that shifts the yscroll accordingly
 
-  // setTimeout(() => {
-  //   //Start the timer
-  //   const screenHeights = Math.round(window.scrollY / window.outerHeight);
-
-  //   const absDifferenceOfScroll = Math.abs(
-  //     screenHeights * window.outerHeight - window.scrollY
-  //   );
-
-  //   if (absDifferenceOfScroll > window.outerHeight * .05) {
-  //     console.log(
-  //       absDifferenceOfScroll,
-  //       "scroll diff",
-  //       screenHeights * window.outerHeight
-  //     );
-  //     scroll.scrollTo(screenHeights * window.outerHeight);
-  //   } //After 1 second, set render to true
-  // }, 1000);
+  // useEffect(() => {scroll.scrollTo(2 * window.innerHeight)}, []);
 
   useEffect(() => {
-    console.log("slide#2", currentSlideNumber, window.scrollY);
     const screenWidths = window.scrollY / window.outerHeight;
     if (screenWidths > currentSlide.end) {
       const nextSlideNumber = currentSlideNumber + 1;
@@ -58,6 +41,7 @@ const AbsoluteElements = props => {
       <Display />
       <Discuss />
       <Divider />
+      <Source />
     </AbsoluteElementsContainer>
   );
 };

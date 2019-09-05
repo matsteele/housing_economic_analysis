@@ -1,6 +1,6 @@
 import React from "react";
-import { StyledSVG } from ".";
-import { ShiftOutHOC } from "../element_base";
+import { ShiftOutHOC, StyledSVG } from "../element_base";
+
 
 export default function PresentationLegend() {
   return (
