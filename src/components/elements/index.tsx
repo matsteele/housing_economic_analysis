@@ -7,14 +7,11 @@ import Display from "./display";
 import Background from "./background";
 import { store } from "utils/store";
 import story from "../narrative/story";
-import { animateScroll as scroll } from "react-scroll";
 
 const AbsoluteElements = props => {
   const { state, dispatch } = useContext(store);
   const currentSlideNumber = state.currentSlideNumber;
   const currentSlide = story[currentSlideNumber];
-
-  // useEffect(() => {scroll.scrollTo(2 * window.innerHeight)}, []);
 
   useEffect(() => {
     const screenWidths = window.scrollY / window.outerHeight;
@@ -35,7 +32,7 @@ const AbsoluteElements = props => {
 
   return (
     <AbsoluteElementsContainer>
-      <p>slide for animation</p>
+      <p>slide for animated content</p>
       <Background />
       <Title />
       <Display />
@@ -49,7 +46,6 @@ const AbsoluteElements = props => {
 export default AbsoluteElements;
 
 import styled from "@emotion/styled";
-import styleUtils from "utils/styles";
 
 export const AbsoluteElementsContainer: any = styled.div({
   position: "relative",

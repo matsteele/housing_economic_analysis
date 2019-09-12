@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import AbsoluteElements from "../elements";
 import { store } from "utils/store";
-
+import story from "../narrative/story";
 
 class Layout extends React.Component {
   constructor(props) {
@@ -29,16 +29,19 @@ class Layout extends React.Component {
   }
 
   render() {
-    var N = 100;
-    const longArray = Array.apply(null, { length: N }).map(Number.call, Number);
+    const lastStory = story[story.length-1]
+    console.log(story,lastStory,"last");
+    const longArray = Array.apply(null, { length: lastStory.end + story.length+1}).map(
+      Number.call,
+      Number
+    );
     return (
       <>
         <ScrollableContainer>
           {longArray.map(valu => {
             return (
               <FillerDiv key={valu}>
-                scroll height {valu} {this.state.screenWidths}{" "}
-                {this.state.scrollTop}
+                {valu}
               </FillerDiv>
             );
           })}
@@ -71,5 +74,6 @@ const FillerDiv: any = styled.div({
   height: window.innerHeight,
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
+  color: "green"
 });

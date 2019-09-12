@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Layout from "./components/layout";
 import { Global, css } from "@emotion/core";
-import story from "./components/narrative/story";
 import { StoreProvider,  } from "utils/store";
 
 export default function App(): JSX.Element {

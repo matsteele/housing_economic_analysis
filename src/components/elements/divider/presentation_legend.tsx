@@ -33,7 +33,9 @@ export default function PresentationLegend(props) {
   }
 
   const handleClick = e => {
-    scroll.scrollTo((e.target.id) * window.innerHeight);
+    if (e.target.id > 0){
+      scroll.scrollTo(e.target.id * window.innerHeight);
+    } console.log(e.target.id, window.innerHeight, "clicked");
   };
 
   const handleMouseIn = e => {

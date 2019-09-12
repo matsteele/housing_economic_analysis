@@ -34,7 +34,6 @@ const Display = (props: iProps): JSX.Element => {
 export default Display;
 
 //styles
-import styleUtils from "utils/styles";
 import styled from "@emotion/styled";
 
 const MainDisplay: any = styled(OutlinedAbsoluteDiv)({

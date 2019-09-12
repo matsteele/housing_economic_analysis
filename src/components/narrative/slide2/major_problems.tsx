@@ -4,11 +4,15 @@ import { ShiftOutHOC, elementDimensions } from "../../elements/element_base";
 import styleUtils from "utils/styles";
 import styled from "@emotion/styled";
 
+import s from "../storyStarts";
+
+console.log(s, "start");
+
 
 export default function MajorProblems() {
   return (
     <>
-      <UpperDiv>two major problems in urban real estate market</UpperDiv>
+      <UpperDiv>two major problems in the urban real estate market</UpperDiv>
       <div
         css={css`
           margin-left: 10%;
@@ -20,8 +24,8 @@ export default function MajorProblems() {
       >
         <BaseDiv>
           <ShiftOutHOC
-            startingSlide={7}
-            endingSlide={11}
+            startingSlide={s._2_strt + 1}
+            endingSlide={s._2_strt + 5}
             height="25%"
             width="75%"
           >
@@ -33,8 +37,8 @@ export default function MajorProblems() {
         </BaseDiv>
         <BaseDiv>
           <ShiftOutHOC
-            startingSlide={9}
-            endingSlide={11}
+            startingSlide={s._2_strt + 3}
+            endingSlide={s._2_strt + 5}
             height="25%"
             width="75%"
           >

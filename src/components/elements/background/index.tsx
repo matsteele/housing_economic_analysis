@@ -1,13 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { store } from "utils/store";
 import story from "../../narrative/story";
-import SVG from "react-inlinesvg";
-import { jsx, css, keyframes } from "@emotion/core";
-
-import { ShiftOutHOC, elementDimensions } from "../element_base";
+import { ShiftOutHOC } from "../element_base";
 
 const Background = (props: iProps): JSX.Element => {
-  const { state, dispatch } = useContext(store);
+  const { state } = useContext(store);
   const currentSlide = story[state.currentSlideNumber];
   let backgroundColorBasedOnTheme;
 

@@ -15,8 +15,6 @@ import {
 const width = elementDimensions.DividerWidth;
 const height = "100%";
 
-
-
 const Divider = (props: iProps): JSX.Element => {
     const { state } = useContext(store);
     const currentSlide = story[state.currentSlideNumber];

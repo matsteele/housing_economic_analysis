@@ -48,6 +48,7 @@ import styleUtils from "utils/styles";
 import styled from "@emotion/styled";
 
 const TextDiv: any = styled(OutlinedAbsoluteDiv)({
+  zIndex: 10,
   width: width,
   height: height,
   right: elementDimensions.BufferWidth,
