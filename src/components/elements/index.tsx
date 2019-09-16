@@ -49,7 +49,6 @@ import styled from "@emotion/styled";
 
 export const AbsoluteElementsContainer: any = styled.div({
   position: "relative",
-  border: "1px solid grey",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
